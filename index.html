@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nguyễn Tấn Lực | lcnguyn06</title>
+  <meta name="description"
+    content="Xin chào, tôi là Nguyễn Tấn Lực — lcnguyn06 (Rio). Tôi là người luôn trân trọng những điều giản dị trong cuộc sống." />
+  <meta name="theme-color" content="#060913" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="https://cdn.discordapp.com/emojis/1111630069362868244.webp" />
+
+</head>
+
+<body class="terminal-active">
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div id="pointer-glow" class="pointer-glow" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <main id="app-root">
+    <section id="terminal-screen" class="screen terminal-screen active" aria-label="Windows 11 command prompt intro">
+      <div class="cmd-window">
+        <div class="cmd-titlebar">
+          <div id="cmd-tabs" class="cmd-tabs" role="tablist" aria-label="CMD tabs"></div>
+          <button id="cmd-new-tab" class="cmd-plus" type="button" aria-label="Mở tab CMD mới">+</button>
+          <div class="cmd-controls" aria-hidden="true"><span>—</span><span>□</span><span>×</span></div>
+        </div>
+        <div class="cmd-body">
+          <div id="cmd-log" class="cmd-log" aria-live="polite"></div>
+          <form id="cmd-form" class="cmd-prompt-line" autocomplete="off">
+            <span>C:\Users\Rio&gt;</span>
+            <input id="cmd-input" type="text" autocomplete="off" spellcheck="false" aria-label="CMD command input" />
+          </form>
+          <button id="enter-console-btn" class="cmd-continue">Join World</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="profile-screen" class="screen profile-screen" aria-label="Trang hồ sơ chính">
+      <article class="profile-console glass-panel">
+
+        <div class="profile-banner">
+          <img id="banner-image" src="https://i.pinimg.com/originals/ab/90/cd/ab90cd665a40678eb76c3b80a2d5a83f.gif"
+            alt="Ảnh bìa hồ sơ" />
+          <div class="banner-glow"></div>
+        </div>
+
+        <header class="profile-header">
+          <div class="avatar-wrap">
+            <img id="avatar-image" class="avatar-image" src="" alt="Ảnh đại diện" />
+            <div id="avatar-fallback" class="avatar-fallback">L</div>
+            <img id="avatar-decoration" class="avatar-decoration" src="./data/decoration/anime-nani.png"
+              alt="Trang trí avatar" />
+            <span id="status-orb" class="status-orb offline" aria-label="Trạng thái Discord"></span>
+          </div>
+
+          <div class="identity-block">
+            <h1 id="display-name"><span id="profile-typing-name" class="profile-typing-name">Nguyễn Tấn Lực</span><span class="profile-typing-cursor" aria-hidden="true">|</span></h1>
+            <p class="username">@<span id="username">lcnguyn06</span></p>
+          </div>
+        </header>
+
+        <section class="presence-card" aria-labelledby="presence-title">
+          <div>
+            <h2 id="presence-title">Trạng thái: <span id="custom-status-line">Đang tải...</span></h2>
+            <p id="status-text"><span class="inline-dot"></span>Đang kết nối...</p>
+          </div>
+          <span id="last-updated" class="sync-pill">đang đồng bộ</span>
+        </section>
+
+        <section id="activity-card" class="activity-card hidden" aria-labelledby="activity-title">
+          <div id="activity-icon" class="activity-icon">✦</div>
+          <div>
+            <h2 id="activity-title">Hoạt động</h2>
+            <p id="activity-name" class="handle">Không có hoạt động</p>
+            <p id="activity-detail">Game, Spotify hoặc app đang chạy sẽ hiện ở đây.</p>
+            <p id="activity-time" class="activity-time"></p>
+          </div>
+        </section>
+
+        <section class="meta-grid" aria-label="Thông tin meta">
+          <div><span>Spotify</span><strong id="spotify-status">Chưa phát hiện</strong></div>
+          <div><span>Ngày sinh</span><strong>29 - 12 - 2006</strong></div>
+        </section>
+
+        <section class="about-card">
+          <h2>Giới thiệu</h2>
+          <p>Tôi là người luôn trân trọng những điều giản dị trong cuộc sống. Thích quan sát mọi thứ diễn ra xung quanh — từ ánh nắng len qua ô cửa sổ cho đến nhịp sống chậm rãi của một góc phố quen. Những chuyến đi không quá ồn ào, tôi thường đi bộ, trò chuyện với người bản địa và cảm nhận văn hóa theo cách thật gần gũi. Sống chậm không phải là bỏ lỡ, mà là nhìn rõ hơn những điều khiến mình thấy bình yên.</p>
+          <div class="tags" aria-label="Thẻ hồ sơ">
+            <span>Cầu lông</span>
+            <span>Nghe nhạc</span>
+            <span>Đi bộ</span>
+            <span>Nhiếp ảnh</span>
+            <span>Software Developer</span>
+          </div>
+        </section>
+
+        <nav class="social-row" aria-label="Liên kết mạng xã hội">
+          <a id="facebook-link" href="https://www.facebook.com/lucnguyen2912" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a id="instagram-link" href="https://www.instagram.com/lucnguyen_06/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a id="tiktok-link" href="https://www.tiktok.com/@ln.0666" target="_blank" rel="noopener noreferrer" aria-label="TikTok" title="TikTok">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.77a8.16 8.16 0 0 0 4.77 1.52V6.76a4.85 4.85 0 0 1-1-.07z"/></svg>
+          </a>
+          <a id="github-link" href="https://github.com/lucnguyen06" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a id="email-link" href="mailto:lucnguyen0562@gmail.com" aria-label="Email" title="lucnguyen0562@gmail.com">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+          <a id="phone-link" href="tel:0562903904" aria-label="Điện thoại" title="0562903904">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          </a>
+        </nav>
+
+        <footer class="profile-footer">
+          <a id="page-one-link" href="#">Về tôi</a>
+          <a id="page-two-link" href="#">Sở thích</a>
+          <a id="mal-link" href="#">Liên hệ</a>
+        </footer>
+
+        <section id="color-page" class="color-page hidden" aria-label="Unity Rich Text Gradient Generator">
+          <div class="color-page-head">
+            <button id="color-back" class="mini-btn" type="button">← Home</button>
+            <div>
+              <p class="eyebrow">Unity tool</p>
+              <h2>Rich Text Colorizer</h2>
+            </div>
+          </div>
+
+          <label class="field-block">
+            <span>Nhập văn bản</span>
+            <textarea id="tc-input-text" rows="4">Rio desu</textarea>
+          </label>
+
+          <div class="tool-grid">
+            <label class="field-block">
+              <span>Hiệu ứng màu</span>
+              <select id="tc-effect">
+                <option value="two">Dải hai màu</option>
+                <option value="mirror">Dải hai màu lặp lại</option>
+                <option value="three">Dải ba màu</option>
+                <option value="solid">Một màu</option>
+                <option value="random">Màu ngẫu nhiên</option>
+                <option value="rainbow">Cầu vồng</option>
+              </select>
+            </label>
+            <label class="field-block">
+              <span>Phông chữ</span>
+              <select id="tc-font">
+                <option value="">Mặc định</option><option>Arial</option><option>Verdana</option><option>Tahoma</option><option>Georgia</option><option>Courier New</option><option>Times New Roman</option><option>Trebuchet MS</option><option>Lucida Console</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="color-picks" aria-label="Chọn màu">
+            <label><span>Đầu</span><input id="tc-color-1" type="color" value="#ff4fd8"></label>
+            <label><span>Giữa</span><input id="tc-color-2" type="color" value="#5865f2"></label>
+            <label><span>Cuối</span><input id="tc-color-3" type="color" value="#35e8ff"></label>
+          </div>
+
+          <div class="tool-grid compact">
+            <label class="field-block"><span>Cỡ chữ</span><select id="tc-size"><option value="0">Mặc định</option><option value="12">12</option><option value="18">18</option><option value="24">24</option><option value="30">30</option><option value="36">36</option><option value="48">48</option><option value="60">60</option><option value="72">72</option><option value="90">90</option></select></label>
+            <div class="toggle-row"><label><input id="tc-bold" type="checkbox">Đậm</label><label><input id="tc-italic" type="checkbox">Ngiêng</label><label><input id="tc-word" type="checkbox">Random</label></div>
+          </div>
+
+          <div class="preview-card">
+            <span>Preview</span>
+            <div id="tc-preview" class="tc-preview"></div>
+          </div>
+
+          <label class="field-block output-block">
+            <span>Unity Rich Text</span>
+            <textarea id="tc-output" rows="6" readonly></textarea>
+          </label>
+          <button id="tc-copy" class="copy-btn" type="button">Copy Unity Rich Text</button>
+        </section>
+
+        <section id="bot-page" class="bot-page hidden" aria-label="Sở thích">
+          <div class="color-page-head">
+            <button id="bot-back" class="mini-btn" type="button">← Home</button>
+            <div>
+              <p class="eyebrow">Sở thích & Đam mê</p>
+              <h2 id="bot-page-title">Sở thích</h2>
+            </div>
+          </div>
+
+          <div class="bot-hero">
+            <div class="bot-avatar-wrap">
+              <div class="bot-avatar-fallback">📷</div>
+            </div>
+            <div>
+              <span class="bot-kicker">Đam mê của tôi</span>
+              <h3>Nguyễn Tấn Lực</h3>
+              <p>Quận 12, Hồ Chí Minh, Việt Nam</p>
+            </div>
+          </div>
+
+          <div class="hobby-detail-grid">
+            <div class="hobby-detail-card">
+              <span class="hobby-detail-icon">🏸</span>
+              <div>
+                <strong>Cầu lông</strong>
+                <p>Thể thao phong trào, rèn luyện sức khỏe và giải trí. Tôi thích những trận đấu gay cấn và tinh thần thể thao.</p>
+              </div>
+            </div>
+            <div class="hobby-detail-card">
+              <span class="hobby-detail-icon">🎧</span>
+              <div>
+                <strong>Nghe nhạc</strong>
+                <p>Thưởng thức âm nhạc, khám phá các thể loại mới. Indie, acoustic, lofi là những thể loại tôi yêu thích.</p>
+              </div>
+            </div>
+            <div class="hobby-detail-card">
+              <span class="hobby-detail-icon">🚶</span>
+              <div>
+                <strong>Đi bộ</strong>
+                <p>Đi bộ thư giãn, khám phá và tận hưởng không gian xung quanh. Mỗi bước chân đều mang một câu chuyện.</p>
+              </div>
+            </div>
+            <div class="hobby-detail-card">
+              <span class="hobby-detail-icon">📷</span>
+              <div>
+                <strong>Nhiếp ảnh</strong>
+                <p>Ghi lại khoảnh khắc đẹp, lưu giữ kỷ niệm qua ống kính. Sony máy ảnh là người bạn đồng hành.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
+    </section>
+  </main>
+
+  <aside id="music-player" class="music-player glass-panel hidden" aria-label="Trình phát nhạc">
+    <button id="play-toggle" class="play-btn" type="button" aria-label="Phát hoặc tạm dừng">▶</button>
+    <button id="next-track" class="next-btn" type="button" aria-label="Chuyển bài tiếp theo">⏭</button>
+    <div class="track-meta">
+      <strong id="track-title">SIMPLE LOVE</strong>
+      <div class="track-time"><span id="current-time">0:00</span><span id="duration-time">0:00</span></div>
+      <div class="progress"><span id="progress-bar"></span></div>
+    </div>
+    <div id="volume-control" class="volume-control" aria-label="Âm lượng nhạc">
+      <button id="volume-toggle" class="volume-toggle" type="button" aria-label="Mở chỉnh âm lượng">🔊</button>
+      <input id="volume-slider" type="range" min="0" max="100" value="50" aria-label="Chỉnh âm lượng nhạc" />
+    </div>
+    <div class="visualizer" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <audio id="audio-player" src="./data/music/simp_love.mp3" preload="auto"></audio>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
