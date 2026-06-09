@@ -1,4 +1,4 @@
-# Nguyễn Tấn Lực | Rio Profile
+# Nguyễn Tấn Lực | lcnguyen Profile
 
 Profile page cá nhân theo phong cách cyber-anime, lấy cảm hứng từ dự án Takeshi.
 

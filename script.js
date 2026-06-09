@@ -64,17 +64,17 @@ const activityTypes = {
 };
 
 const introLines = [
-  'C:\\Users\\Rio> whoami',
-  'lcnguyn06.dev',
+  'C:\\Users\\lcnguyen> whoami',
+  'lcnguyen.dev',
   '',
-  'C:\\Users\\Rio> profile --boot',
+  'C:\\Users\\lcnguyen> profile --boot',
   '[OK] Loading personal interface...',
   '[OK] Connecting Discord presence...',
   '[OK] Preparing avatar decoration...',
   '[OK] Mounting local music file...',
   '',
+  'Name         : Nguyễn Tấn Lực',
   'Alias        : lcnguyn06 - Rio',
-  'Style        : Cyber profile - slow living',
   'Location     : Hồ Chí Minh, Việt Nam',
   'Passion      : Cầu lông, Nghe nhạc, Đi bộ, Nhiếp ảnh',
   'Current Mode : Sống chậm, sống thật',
@@ -237,10 +237,10 @@ function normalizeUrl(value) {
 function fakeCommand(command) {
   const lower = command.toLowerCase();
   if (['help', '?'].includes(lower)) return 'Available: help, clear, profile, status, ping, dir, scan, run <anything>, or paste a URL.';
-  if (lower === 'profile') return 'Opening Rio profile interface... done. Press Enter outside this input to continue.';
+  if (lower === 'profile') return 'Opening lcnguyn06 profile interface... done. Press Enter outside this input to continue.';
   if (lower === 'status') return 'Profile daemon: ONLINE\nSlow living energy: 100%\nCamera: ready.\nSpotify: always on.';
   if (lower === 'ping') return 'Pinging hanoi.walk [127.0.0.1]... Reply: time=6ms TTL=slow';
-  if (lower === 'dir') return ' Directory of C:\\Users\\Rio\n\n<DIR> photos\n<DIR> playlists\n<DIR> notebooks\nprofile.exe';
+  if (lower === 'dir') return ' Directory of C:\\Users\\lcnguyen\n\n<DIR> photos\n<DIR> playlists\n<DIR> notebooks\nprofile.exe';
   if (lower.startsWith('run ') || lower.startsWith('npm ') || lower.startsWith('python ') || lower.startsWith('git ')) {
     return `Executing "${command}"...\n[OK] Pretending very professionally. No errors found.`;
   }
@@ -269,7 +269,7 @@ cmdForm.addEventListener('submit', (event) => {
     renderCmdBody();
     return;
   }
-  tab.log += `${tab.log.endsWith('\n') ? '' : '\n'}C:\\Users\\Rio> ${command}\n`;
+  tab.log += `${tab.log.endsWith('\n') ? '' : '\n'}C:\\Users\\lcnguyen> ${command}\n`;
   const url = normalizeUrl(command);
   if (url) {
     window.open(url, '_blank', 'noopener,noreferrer');
