@@ -1,4 +1,5 @@
 const DISCORD_USER_ID = '874234386697056277';
+const MUSIC_MANIFEST_PATH = './data/music/tracks.json';
 const DECORATIONS = [
   'anime-dang-yeu.png',
   'anime-do-mo-hoi.png',
@@ -16,7 +17,11 @@ const terminalScreen = document.getElementById('terminal-screen');
 const profileScreen = document.getElementById('profile-screen');
 const enterButton = document.getElementById('enter-console-btn');
 const playToggle = document.getElementById('play-toggle');
+const playlistToggle = document.getElementById('playlist-toggle');
 const player = document.getElementById('music-player');
+const playlistPanel = document.getElementById('playlist-panel');
+const playlistItems = document.getElementById('playlist-items');
+const playlistCount = document.getElementById('playlist-count');
 const audio = document.getElementById('audio-player');
 const progressBar = document.getElementById('progress-bar');
 const volumeControl = document.getElementById('volume-control');
@@ -556,16 +561,57 @@ const trackTitle = document.getElementById('track-title');
 const nextTrackButton = document.getElementById('next-track');
 const currentTimeEl = document.getElementById('current-time');
 const durationTimeEl = document.getElementById('duration-time');
-const tracks = [
-  { title: 'SIMPLE LOVE', src: './data/music/simp_love.mp3' },
-  { title: 'Weathering With You Lofi', src: './data/music/Weathering_with_you_Lofi.mp3' },
-];
+const tracks = [];
 let currentTrackIndex = 0;
 let playing = false;
 
 audio.volume = Number(volumeSlider.value) / 100;
 playToggle.textContent = '▶';
 player.classList.add('paused');
+
+function renderPlaylist() {
+  playlistCount.textContent = `${tracks.length} bài`;
+  playlistItems.innerHTML = tracks.map((track, index) => `
+    <button class="playlist-item ${index === currentTrackIndex ? 'active' : ''}" type="button" data-track-index="${index}">
+      <span class="playlist-item-order">${String(index + 1).padStart(2, '0')}</span>
+      <span class="playlist-item-text">
+        <strong>${track.title}</strong>
+        <span>${track.src.split('/').pop()}</span>
+      </span>
+    </button>
+  `).join('');
+}
+
+function setTrackError(message) {
+  trackTitle.textContent = message;
+  currentTimeEl.textContent = '0:00';
+  durationTimeEl.textContent = '0:00';
+  progressBar.style.width = '0%';
+}
+
+async function loadMusicManifest() {
+  try {
+    const response = await fetch(MUSIC_MANIFEST_PATH, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const data = await response.json();
+    const manifestTracks = Array.isArray(data?.tracks) ? data.tracks : [];
+
+    tracks.splice(0, tracks.length, ...manifestTracks.filter((track) => track?.title && track?.src));
+
+    if (!tracks.length) {
+      setTrackError('Chưa có file nhạc');
+      renderPlaylist();
+      return;
+    }
+
+    loadTrack(0);
+  } catch (error) {
+    console.warn('Unable to load music manifest:', error);
+    setTrackError('Không tải được danh sách nhạc');
+    renderPlaylist();
+  }
+}
 
 function formatTime(seconds) {
   if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
@@ -576,22 +622,43 @@ function formatTime(seconds) {
 
 function renderTrackMeta() {
   const track = tracks[currentTrackIndex];
-  trackTitle.textContent = track.title;
+  trackTitle.textContent = track?.title || 'Chưa có bài hát';
   currentTimeEl.textContent = formatTime(audio.currentTime);
   durationTimeEl.textContent = formatTime(audio.duration);
+  renderPlaylist();
+}
+
+function setPlaylistOpen(isOpen) {
+  playlistPanel.classList.toggle('hidden', !isOpen);
+  playlistToggle.setAttribute('aria-expanded', String(isOpen));
 }
 
 function loadTrack(index) {
+  if (!tracks.length) {
+    trackTitle.textContent = 'Chưa có file nhạc';
+    audio.removeAttribute('src');
+    audio.load();
+    renderPlaylist();
+    return;
+  }
+
   currentTrackIndex = (index + tracks.length) % tracks.length;
   const track = tracks[currentTrackIndex];
-  audio.src = track.src;
+  audio.src = encodeURI(track.src);
+  audio.load();
   progressBar.style.width = '0%';
   currentTimeEl.textContent = '0:00';
   durationTimeEl.textContent = '0:00';
   renderTrackMeta();
 }
 
+function ensureTracksReady() {
+  return tracks.length > 0;
+}
+
+
 async function playCurrentTrack() {
+  if (!ensureTracksReady()) return;
   await audio.play();
   playing = true;
   playToggle.textContent = '❚❚';
@@ -600,6 +667,7 @@ async function playCurrentTrack() {
 }
 
 async function startMusic() {
+  if (!ensureTracksReady()) return;
   try {
     audio.volume = 0.15;
     volumeSlider.value = 15;
@@ -635,6 +703,27 @@ playToggle.addEventListener('click', async () => {
   }
 });
 
+playlistToggle.addEventListener('click', (event) => {
+  event.stopPropagation();
+  setPlaylistOpen(playlistPanel.classList.contains('hidden'));
+});
+
+playlistItems.addEventListener('click', async (event) => {
+  const item = event.target.closest('[data-track-index]');
+  if (!item) return;
+
+  const nextIndex = Number(item.dataset.trackIndex);
+  if (!Number.isInteger(nextIndex)) return;
+
+  loadTrack(nextIndex);
+  try {
+    await playCurrentTrack();
+  } catch (error) {
+    console.warn('Unable to play selected track:', error);
+    trackTitle.textContent = 'Không mở được file nhạc';
+  }
+});
+
 nextTrackButton.addEventListener('click', async () => {
   const shouldResume = playing;
   loadTrack(currentTrackIndex + 1);
@@ -652,17 +741,19 @@ audio.addEventListener('error', () => {
   trackTitle.textContent = 'Không tìm thấy file nhạc';
 });
 audio.addEventListener('ended', () => {
-  if (currentTrackIndex === 0) {
-    audio.currentTime = 0;
-  } else {
-    loadTrack(0);
-  }
+  loadTrack(currentTrackIndex + 1);
   playCurrentTrack().catch((error) => console.warn('Unable to autoplay next track:', error));
 });
 audio.addEventListener('timeupdate', () => {
   if (!audio.duration) return;
   progressBar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
   renderTrackMeta();
+});
+document.addEventListener('click', (event) => {
+  if (!player.contains(event.target)) {
+    setPlaylistOpen(false);
+    volumeControl.classList.remove('open');
+  }
 });
 
 let volumeAutoCloseTimer;
@@ -703,7 +794,8 @@ volumeSlider.addEventListener('input', () => {
   element.addEventListener('click', (event) => event.preventDefault());
 });
 
-renderTrackMeta();
+renderPlaylist();
+loadMusicManifest();
 
 const colorTool = {
   page: document.getElementById('color-page'),

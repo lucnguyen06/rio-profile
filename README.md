@@ -86,11 +86,16 @@ Chỉnh sửa CSS variables trong `styles.css`:
 ```
 
 ### Thêm nhạc mới
-Thêm vào mảng `tracks` trong `script.js`:
-```javascript
-const tracks = [
-  { title: 'Tên bài hát', src: './data/music/ten-bai-hat.mp3' },
-];
+1. Chép file nhạc vào `data/music/`
+2. Chạy lệnh:
+```bash
+npm run music:generate
+```
+3. Tải lại trang để playlist cập nhật tự động từ `data/music/tracks.json`
+
+Nếu bạn dùng server local, có thể chạy:
+```bash
+npm run dev
 ```
 
 ## Công nghệ

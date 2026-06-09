@@ -242,10 +242,11 @@
   </main>
 
   <aside id="music-player" class="music-player glass-panel hidden" aria-label="Trình phát nhạc">
+    <button id="playlist-toggle" class="playlist-btn" type="button" aria-label="Mở danh sách nhạc">☰</button>
     <button id="play-toggle" class="play-btn" type="button" aria-label="Phát hoặc tạm dừng">▶</button>
     <button id="next-track" class="next-btn" type="button" aria-label="Chuyển bài tiếp theo">⏭</button>
     <div class="track-meta">
-      <strong id="track-title">SIMPLE LOVE</strong>
+      <strong id="track-title">Đang tải danh sách nhạc</strong>
       <div class="track-time"><span id="current-time">0:00</span><span id="duration-time">0:00</span></div>
       <div class="progress"><span id="progress-bar"></span></div>
     </div>
@@ -254,7 +255,14 @@
       <input id="volume-slider" type="range" min="0" max="100" value="50" aria-label="Chỉnh âm lượng nhạc" />
     </div>
     <div class="visualizer" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-    <audio id="audio-player" src="./data/music/simp_love.mp3" preload="auto"></audio>
+    <div id="playlist-panel" class="playlist-panel hidden" aria-label="Danh sách bài hát">
+      <div class="playlist-head">
+        <strong>Danh sách nhạc</strong>
+        <span id="playlist-count">0 bài</span>
+      </div>
+      <div id="playlist-items" class="playlist-items"></div>
+    </div>
+    <audio id="audio-player" preload="auto"></audio>
   </aside>
 
   <script src="script.js"></script>

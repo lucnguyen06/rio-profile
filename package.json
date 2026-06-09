@@ -1,0 +1,14 @@
+{
+  "name": "rio-profile",
+  "version": "1.0.0",
+  "description": "Nguyễn Tấn Lực | lcnguyen Profile",
+  "type": "module",
+  "scripts": {
+    "music:generate": "node scripts/generate-music.js",
+    "dev": "npx serve .",
+    "build:music": "npm run music:generate"
+  },
+  "devDependencies": {},
+  "keywords": ["profile", "cyber-anime", "personal-page"],
+  "author": "Nguyễn Tấn Lực"
+}
