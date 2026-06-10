@@ -58,7 +58,16 @@ const statusLabels = {
   offline: 'Đang offline',
 };
 
-const profileTypingWords = ['Nguyễn Tấn Lực', 'RIO🌸 ', 'Software developer'];
+const profileTypingWords = ['Rio🌸', 'Nguyễn Tấn Lực', 'Software developer'];
+
+function splitGraphemes(value) {
+  return Array.from(value || '');
+}
+
+function normalizeDisplayName(value, fallback = 'Nguyễn Tấn Lực') {
+  const trimmed = (value || '').trim();
+  return trimmed || fallback;
+}
 
 const activityTypes = {
   0: { label: 'Đang chơi', icon: '🎮' },
@@ -451,9 +460,10 @@ function startProfileNameTyping() {
 
   const tick = () => {
     const word = profileTypingWords[wordIndex];
-    target.textContent = word.slice(0, charIndex);
+    const graphemes = splitGraphemes(word);
+    target.textContent = graphemes.slice(0, charIndex).join('');
 
-    if (!deleting && charIndex < word.length) {
+    if (!deleting && charIndex < graphemes.length) {
       charIndex += 1;
       setTimeout(tick, 100);
       return;
@@ -515,7 +525,7 @@ async function fetchDiscordPresence() {
     const avatarUrl = getAvatarUrl(user);
     const discordDecorationUrls = getDiscordDecorationUrls(user);
 
-    profileTypingWords[0] = user.global_name || user.display_name || 'Nguyễn Tấn Lực';
+    profileTypingWords[0] = normalizeDisplayName(user.global_name || user.display_name, 'Nguyễn Tấn Lực');
     presenceEls.username.textContent = user.username || 'lcnguyn06';
     presenceEls.customStatusLine.textContent = customStatusText || '...';
     presenceEls.statusText.innerHTML = `<span class="inline-dot ${status}"></span>${statusLabel}${clientText ? ` - ${clientText}` : ''}`;
@@ -589,6 +599,12 @@ function setTrackError(message) {
   progressBar.style.width = '0%';
 }
 
+function getRandomTrackIndex() {
+  if (!tracks.length) return 0;
+  if (tracks.length === 1) return 0;
+  return Math.floor(Math.random() * tracks.length);
+}
+
 async function loadMusicManifest() {
   try {
     const response = await fetch(MUSIC_MANIFEST_PATH, { cache: 'no-store' });
@@ -605,7 +621,7 @@ async function loadMusicManifest() {
       return;
     }
 
-    loadTrack(0);
+    loadTrack(getRandomTrackIndex());
   } catch (error) {
     console.warn('Unable to load music manifest:', error);
     setTrackError('Không tải được danh sách nhạc');
